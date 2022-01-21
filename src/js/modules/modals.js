@@ -1,4 +1,6 @@
 const modals = () => {
+  let btnChecked = false;
+
   //Popup modal by click on smth
   const bindmodal = (triggerSelector, modalSelector, closSelector, destroy = false) => {
     //Selectors of elements
@@ -14,6 +16,10 @@ const modals = () => {
           e.preventDefault();
         }
 
+        //Something pressed at list one time
+        btnChecked = true;
+
+        //Destroing trigger for fixed gift
         if (destroy) {
           item.remove();
         }
@@ -98,10 +104,23 @@ const modals = () => {
     return scrollWidth;
   }
 
+  const openByScrolldown = selector => {
+    window.addEventListener('scroll', () => {
+      //This var for old browsers(documentElement for modern browsers but body for outdated)
+      let scrollToBottom = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+      if (!btnChecked && (window.pageYOffset + document.documentElement.clientHeight >= scrollToBottom)) {
+        document.querySelector(selector).click();//Just click the button artificially
+      }
+    });
+
+  };
+
   bindmodal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindmodal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
   bindmodal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
 
+  openByScrolldown('.fixed-gift');
   modalByTime('.popup-consultation', 3000);
 };
 
