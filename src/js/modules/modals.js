@@ -52,8 +52,18 @@ const modals = () => {
   //Popup modal by time function
   const modalByTime = (modalSelector, time) => {
     setTimeout(() => {
-      document.querySelector(modalSelector).style.display = "block";
-      document.body.style.overflow = "hidden";
+      let display;
+
+      document.querySelectorAll('[data-modal]').forEach(item => {
+        if (getComputedStyle(item).display !== 'none') {
+          display = 'block';
+        }
+      });
+
+      if (!display) {
+        document.querySelector(modalSelector).style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
     }, time);
   };
 
@@ -76,13 +86,10 @@ const modals = () => {
     return scrollWidth;
   }
 
-  bindmodal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
-  bindmodal('.phone_link', '.popup', '.popup .popup_close');
-  bindmodal('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
-  bindmodal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
-  bindmodal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
+  bindmodal('.button-design', '.popup-design', '.popup-design .popup-close');
+  bindmodal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
 
-  modalByTime('.popup', 60000);
+  modalByTime('.popup-consultation', 60000);
 };
 
 //Export main function of file
