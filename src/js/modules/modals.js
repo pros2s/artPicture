@@ -1,6 +1,6 @@
 const modals = () => {
   //Popup modal by click on smth
-  const bindmodal = (triggerSelector, modalSelector, closSelector, closeClickOverlay = true) => {
+  const bindmodal = (triggerSelector, modalSelector, closSelector, destroy = false) => {
     //Selectors of elements
     const trigger = document.querySelectorAll(triggerSelector),
           modal = document.querySelector(modalSelector),
@@ -14,6 +14,10 @@ const modals = () => {
           e.preventDefault();
         }
 
+        if (destroy) {
+          item.remove();
+        }
+
         windows.forEach(item => {
           item.style.display = 'none';
         });
@@ -21,6 +25,9 @@ const modals = () => {
         modal.style.display = "block";//Modal's display from none to block(visible)
         document.body.style.overflow = "hidden";//Full body exept modal is hidden(no scroll)
         document.body.style.marginRight = `${hidePopupScroll()}px`;//Remove scroll line
+
+        //normal margin for fized gift
+        document.querySelector('.fixed-gift').style.marginRight = `${hidePopupScroll()}px`;
       });
     });
 
@@ -33,11 +40,12 @@ const modals = () => {
       modal.style.display = "none";
       document.body.style.overflow = "";
       document.body.style.marginRight = '0px';
+      document.querySelector('.fixed-gift').style.marginRight = `0px`;
     });
 
     //Close modal on click to overflow of modal
     modal.addEventListener('click', e => {
-      if(e.target === modal && closeClickOverlay) {
+      if(e.target === modal) {
         windows.forEach(item => {
           item.style.display = 'none';
         });
@@ -45,6 +53,7 @@ const modals = () => {
         modal.style.display = "none";
         document.body.style.overflow = "";
         document.body.style.marginRight = '0px';
+        document.querySelector('.fixed-gift').style.marginRight = `0px`;
       }
     });
   };
@@ -63,6 +72,9 @@ const modals = () => {
       if (!display) {
         document.querySelector(modalSelector).style.display = "block";
         document.body.style.overflow = "hidden";
+        document.body.style.marginRight = `${hidePopupScroll()}px`;
+
+        document.querySelector('.fixed-gift').style.marginRight = `${hidePopupScroll()}px`;
       }
     }, time);
   };
@@ -88,8 +100,9 @@ const modals = () => {
 
   bindmodal('.button-design', '.popup-design', '.popup-design .popup-close');
   bindmodal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+  bindmodal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
 
-  modalByTime('.popup-consultation', 60000);
+  modalByTime('.popup-consultation', 3000);
 };
 
 //Export main function of file
