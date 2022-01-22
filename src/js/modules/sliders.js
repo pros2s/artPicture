@@ -25,6 +25,12 @@ const sliders = (slides, dir, prev, next) => {
   };
 
   showSlides(slideIndex);
+
+  const changeSlides = n => {
+    showSlides(slideIndex += n);
+  };
+
+  
 };
 
 export default sliders;
