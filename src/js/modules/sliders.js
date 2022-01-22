@@ -1,7 +1,5 @@
 const sliders = (slides, dir, prev, next) => {
-  const items = document.querySelectorAll(slides),
-        prevBtn = document.querySelector(prev),
-        nextBtn = document.querySelector(next);
+  const items = document.querySelectorAll(slides);
 
   let slideIndex = 1;//Counter of slides
 
@@ -11,15 +9,14 @@ const sliders = (slides, dir, prev, next) => {
       slideIndex = 1;
     }
     //If current slide index less then the first slide, then shows the last slide
-    else if (n < 1) {
-      slideIndex = items.length;
+    if (n < 1) {
+    slideIndex = items.length;
     }
-    else {
-      items.forEach(item => {
-        item.classList.add('animated');
-        item.style.display = 'none';
-      });
-    }
+    
+    items.forEach(item => {
+      item.classList.add('animated');
+      item.style.display = 'none';
+    });
 
     items[slideIndex - 1].style.display = 'block';//Shows current slide
   };
@@ -30,7 +27,26 @@ const sliders = (slides, dir, prev, next) => {
     showSlides(slideIndex += n);
   };
 
-  
+  //Changing slides for slider with arrows
+  try { //To prevent the code from stopping
+    const prevBtn = document.querySelector(prev),
+          nextBtn = document.querySelector(next);
+
+    //Functional for prev button
+    prevBtn.addEventListener('click', () => {
+      changeSlides(-1);
+      items[slideIndex - 1].classList.remove('slideInRight');
+      items[slideIndex - 1].classList.add('slideInLeft');
+    });
+
+    //Functional for next button
+    nextBtn.addEventListener('click', () => {
+      changeSlides(+1);
+      items[slideIndex - 1].classList.remove('slideInLeft');
+      items[slideIndex - 1].classList.add('slideInRight');
+    });
+  }
+  catch(e) {}
 };
 
 export default sliders;
