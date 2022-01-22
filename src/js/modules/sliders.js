@@ -65,10 +65,11 @@ const sliders = (slides, prev, next, updown = false) => {
     else {//for horizontal sliders
       paused = setInterval(() => {
         changeSlides(1);
-        changeClasses( 'slideInLeft', 'slideInRight');
+        changeClasses('slideInLeft', 'slideInRight');
       }, 3000);
     }
   };
+  AutoAtnimate();
 
 
   //Stops autochange when mouse is on the slider
