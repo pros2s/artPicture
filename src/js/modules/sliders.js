@@ -1,6 +1,7 @@
 const sliders = (slides, prev, next, updown = false) => {
   const items = document.querySelectorAll(slides);
-  let slideIndex = 1;//Counter of slides
+  let slideIndex = 1,//Counter of slides
+      paused = false;//Id for intervals
 
 
   const showSlides = n => {
@@ -54,18 +55,29 @@ const sliders = (slides, prev, next, updown = false) => {
 
 
   //Autochange slides in sliders
-  if(updown) {//for vertical slider
-    setInterval(() => {
-      changeSlides(1);
-      items[slideIndex - 1].classList.add('slideInDown');
-    }, 3000);
-  }
-  else {//for horizontal sliders
-    setInterval(() => {
-      changeSlides(1);
-      changeClasses( 'slideInLeft', 'slideInRight');
-    }, 3000);
-  }
+  const AutoAtnimate = () => {
+    if(updown) {//for vertical slider
+      paused = setInterval(() => {
+        changeSlides(1);
+        items[slideIndex - 1].classList.add('slideInDown');
+      }, 3000);
+    }
+    else {//for horizontal sliders
+      paused = setInterval(() => {
+        changeSlides(1);
+        changeClasses( 'slideInLeft', 'slideInRight');
+      }, 3000);
+    }
+  };
+
+
+  //Stops autochange when mouse is on the slider
+  items[0].parentNode.addEventListener('mouseenter', () => {
+    clearInterval(paused);
+  });
+  items[0].parentNode.addEventListener('mouseleave', () => {
+    AutoAtnimate();
+  });
 };
 
 export default sliders;
