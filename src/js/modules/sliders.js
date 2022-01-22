@@ -1,7 +1,7 @@
-const sliders = (slides, dir, prev, next) => {
+const sliders = (slides, prev, next, updown = false) => {
   const items = document.querySelectorAll(slides);
-
   let slideIndex = 1;//Counter of slides
+
 
   const showSlides = n => {
     //If current slide index more then slides length, then shows the first slide
@@ -12,7 +12,7 @@ const sliders = (slides, dir, prev, next) => {
     if (n < 1) {
     slideIndex = items.length;
     }
-    
+
     items.forEach(item => {
       item.classList.add('animated');
       item.style.display = 'none';
@@ -20,12 +20,18 @@ const sliders = (slides, dir, prev, next) => {
 
     items[slideIndex - 1].style.display = 'block';//Shows current slide
   };
-
   showSlides(slideIndex);
+
 
   const changeSlides = n => {
     showSlides(slideIndex += n);
   };
+
+  const changeClasses = (firstClass, secondClass) => {
+    items[slideIndex - 1].classList.remove(firstClass);
+    items[slideIndex - 1].classList.add(secondClass);
+  };
+
 
   //Changing slides for slider with arrows
   try { //To prevent the code from stopping
@@ -35,18 +41,31 @@ const sliders = (slides, dir, prev, next) => {
     //Functional for prev button
     prevBtn.addEventListener('click', () => {
       changeSlides(-1);
-      items[slideIndex - 1].classList.remove('slideInRight');
-      items[slideIndex - 1].classList.add('slideInLeft');
+      changeClasses('slideInRight', 'slideInLeft');
     });
 
     //Functional for next button
     nextBtn.addEventListener('click', () => {
-      changeSlides(+1);
-      items[slideIndex - 1].classList.remove('slideInLeft');
-      items[slideIndex - 1].classList.add('slideInRight');
+      changeSlides(1);
+      changeClasses( 'slideInLeft', 'slideInRight');
     });
   }
   catch(e) {}
+
+
+  //Autochange slides in sliders
+  if(updown) {//for vertical slider
+    setInterval(() => {
+      changeSlides(1);
+      items[slideIndex - 1].classList.add('slideInDown');
+    }, 3000);
+  }
+  else {//for horizontal sliders
+    setInterval(() => {
+      changeSlides(1);
+      changeClasses( 'slideInLeft', 'slideInRight');
+    }, 3000);
+  }
 };
 
 export default sliders;
