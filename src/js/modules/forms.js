@@ -1,5 +1,7 @@
 const forms = () => {
   const form = document.querySelectorAll('form'),
+        upload = document.querySelectorAll('[name="upload"]'),
+        textarea = document.querySelectorAll('textarea'),
         inputs = document.querySelectorAll('input');
 
 
@@ -34,8 +36,24 @@ const forms = () => {
     inputs.forEach(item => {
       item.value = '';
     });
+    textarea.forEach(item => {
+      item.value = '';
+    });
+    upload.forEach(item => {
+      item.previousElementSibling.textContent = 'Файл не выбран';
+    });
   };
 
+  upload.forEach(item => {
+    item.addEventListener('input', () => {
+      let dots;
+      const arr = item.files[0].name.split('.');
+      arr[0].length > 6 ? dots = '...' : dots = '.';
+
+      const name = arr[0].substring(0, 6) + dots + arr[1];
+      item.previousElementSibling.textContent = name;
+    });
+  });
 
   form.forEach(item => {
     item.addEventListener('submit', e => {
@@ -68,7 +86,7 @@ const forms = () => {
 
       //Write right path to api if .popup-design exist at any parents of not
       let api;
-      item.closest('.popup-design') ? api = path.designer : api = path.question;
+      item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question;
       console.log(api);
 
 
