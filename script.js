@@ -4062,15 +4062,19 @@ var forms = function forms() {
     upload.forEach(function (item) {
       item.previousElementSibling.textContent = 'Файл не выбран';
     });
-  };
+  }; //Normal name for upload message
+
 
   upload.forEach(function (item) {
     item.addEventListener('input', function () {
       var dots;
-      var arr = item.files[0].name.split('.');
-      arr[0].length > 6 ? dots = '...' : dots = '.';
-      var name = arr[0].substring(0, 6) + dots + arr[1];
-      item.previousElementSibling.textContent = name;
+      var arr = item.files[0].name.split('.'); //split string in two
+
+      arr[0].length > 6 ? dots = '...' : dots = '.'; //if name of file too long than three dots after six first symbols
+
+      var name = arr[0].substring(0, 6) + dots + arr[1]; //saving this name
+
+      item.previousElementSibling.textContent = name; //show this name
     });
   });
   form.forEach(function (item) {

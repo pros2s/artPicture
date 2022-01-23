@@ -44,16 +44,19 @@ const forms = () => {
     });
   };
 
+
+  //Normal name for upload message
   upload.forEach(item => {
     item.addEventListener('input', () => {
       let dots;
-      const arr = item.files[0].name.split('.');
-      arr[0].length > 6 ? dots = '...' : dots = '.';
+      const arr = item.files[0].name.split('.');//split string in two
+      arr[0].length > 6 ? dots = '...' : dots = '.';//if name of file too long than three dots after six first symbols
 
-      const name = arr[0].substring(0, 6) + dots + arr[1];
-      item.previousElementSibling.textContent = name;
+      const name = arr[0].substring(0, 6) + dots + arr[1];//saving this name
+      item.previousElementSibling.textContent = name;//show this name
     });
   });
+
 
   form.forEach(item => {
     item.addEventListener('submit', e => {
