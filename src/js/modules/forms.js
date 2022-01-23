@@ -89,6 +89,11 @@ const forms = () => {
 
         setTimeout(() => {
           statusMessage.remove();
+
+          //Show back modals with animations
+          item.style.display = 'block';
+          item.classList.remove('fadeOutUp');
+          item.classList.add('fadeInUp');
         }, 5000);
       });
     });

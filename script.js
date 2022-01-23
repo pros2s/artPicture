@@ -3590,7 +3590,11 @@ var forms = function forms() {
       .finally(function () {
         clearInputs();
         setTimeout(function () {
-          statusMessage.remove();
+          statusMessage.remove(); //Show back modals with animations
+
+          item.style.display = 'block';
+          item.classList.remove('fadeOutUp');
+          item.classList.add('fadeInUp');
         }, 5000);
       });
     });
