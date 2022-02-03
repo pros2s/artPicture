@@ -48,14 +48,14 @@ const sliders = (slides, prev, next, updown = false) => {
     //Functional for next button
     nextBtn.addEventListener('click', () => {
       changeSlides(1);
-      changeClasses( 'slideInLeft', 'slideInRight');
+      changeClasses('slideInLeft', 'slideInRight');
     });
   }
   catch(e) {}
 
 
   //Autochange slides in sliders
-  const AutoAtnimate = () => {
+  const AutoAnimate = () => {
     if(updown) {//for vertical slider
       paused = setInterval(() => {
         changeSlides(1);
@@ -69,7 +69,7 @@ const sliders = (slides, prev, next, updown = false) => {
       }, 3000);
     }
   };
-  AutoAtnimate();
+  AutoAnimate();
 
 
   //Stops autochange when mouse is on the slider
@@ -77,7 +77,7 @@ const sliders = (slides, prev, next, updown = false) => {
     clearInterval(paused);
   });
   items[0].parentNode.addEventListener('mouseleave', () => {
-    AutoAtnimate();
+    AutoAnimate();
   });
 };
 
