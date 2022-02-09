@@ -7,10 +7,6 @@ const checkTextInputs = selector => {
         e.preventDefault();
       }
     });
-
-    if (input.value.match(/\[^а-яё 0-9]/ig)) {
-      input.value = '';
-    }
   });
 };
 
