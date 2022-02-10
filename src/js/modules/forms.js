@@ -1,3 +1,5 @@
+import {postData} from "../services/requests";
+
 const forms = () => {
   const form = document.querySelectorAll('form'),
         upload = document.querySelectorAll('[name="upload"]'),
@@ -18,17 +20,6 @@ const forms = () => {
   const path = {
     designer: 'assets/server.php',
     question: 'assets/question.php'
-  };
-
-
-  //function of realiton posting data process
-  const postData = async (url, data) => {
-    let res = await fetch(url, {
-      method: 'POST',
-      body: data
-    });
-
-    return await res.text();//returning text massage of data
   };
 
 
