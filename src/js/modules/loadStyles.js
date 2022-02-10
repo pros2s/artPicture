@@ -28,7 +28,7 @@ const loadStyles = (trigger, wrapper) => {
     .then(res => createCards(res))
     .catch(err => console.log(err));
 
-    this.remove();
+    this.remove();//Context only with function!
   });
 };
 

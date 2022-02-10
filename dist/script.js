@@ -4571,7 +4571,7 @@ var loadStyles = function loadStyles(trigger, wrapper) {
     }).catch(function (err) {
       return console.log(err);
     });
-    this.remove();
+    this.remove(); //Context only with function!
   });
 };
 
