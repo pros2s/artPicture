@@ -4350,6 +4350,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_mask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/mask */ "./src/js/modules/mask.js");
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/loadStyles */ "./src/js/modules/loadStyles.js");
+/* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
+
 
 
 
@@ -4367,7 +4369,48 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="name"]');
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="message"]');
   Object(_modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '#styles .row');
+  Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.calc_form .promocode', '.calc_form .calc-price');
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/calc.js":
+/*!********************************!*\
+  !*** ./src/js/modules/calc.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var calc = function calc(size, material, options, promo, result) {
+  var picSize = document.querySelector(size),
+      picMat = document.querySelector(material),
+      picOptions = document.querySelector(options),
+      picPromo = document.querySelector(promo),
+      picRes = document.querySelector(result);
+
+  var calculate = function calculate() {
+    var sum = Math.round(+picSize.value * +picMat.value + +picOptions.value);
+
+    if (!picSize.value || !picMat.value) {
+      //if size or material of picture has not chosen
+      picRes.textContent = 'Выберете размер и материал картины!';
+    } else if (picPromo.value == 'IWANTPOPART') {
+      //sale 30% for promocode
+      picRes.textContent = Math.round(sum * 0.7);
+    } else {
+      picRes.textContent = sum;
+    }
+  };
+
+  picSize.addEventListener('change', calculate);
+  picMat.addEventListener('change', calculate);
+  picOptions.addEventListener('change', calculate);
+  picPromo.addEventListener('input', calculate);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (calc);
 
 /***/ }),
 
@@ -4781,7 +4824,7 @@ var modals = function modals() {
   bindmodal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
   bindmodal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
   openByScrolldown('.fixed-gift');
-  modalByTime('.popup-consultation', 3000);
+  modalByTime('.popup-consultation', 60000);
 }; //Export main function of file
 
 

@@ -122,7 +122,7 @@ const modals = () => {
   bindmodal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
 
   openByScrolldown('.fixed-gift');
-  modalByTime('.popup-consultation', 3000);
+  modalByTime('.popup-consultation', 60000);
 };
 
 //Export main function of file
