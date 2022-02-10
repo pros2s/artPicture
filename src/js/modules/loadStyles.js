@@ -3,7 +3,7 @@ const loadStyles = (trigger, style) => {
         btn = document.querySelector(trigger);
 
   styles.forEach(st => {
-    st.classList.add('animated', 'fadeInUp');
+    st.classList.add('animated', 'fadeInDown');
   });
 
   btn.addEventListener('click', () => {

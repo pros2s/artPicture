@@ -4157,6 +4157,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_mask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/mask */ "./src/js/modules/mask.js");
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
+/* harmony import */ var _modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/loadStyles */ "./src/js/modules/loadStyles.js");
+
 
 
 
@@ -4172,6 +4174,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_mask__WEBPACK_IMPORTED_MODULE_3__["default"])('[name="phone"]');
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="name"]');
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="message"]');
+  Object(_modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '.styles-2');
 });
 
 /***/ }),
@@ -4200,10 +4203,6 @@ var checkTextInputs = function checkTextInputs(selector) {
         e.preventDefault();
       }
     });
-
-    if (input.value.match(/\[^а-яё 0-9]/ig)) {
-      input.value = '';
-    }
   });
 };
 
@@ -4367,6 +4366,39 @@ var forms = function forms() {
 
 /***/ }),
 
+/***/ "./src/js/modules/loadStyles.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/loadStyles.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var loadStyles = function loadStyles(trigger, style) {
+  var styles = document.querySelectorAll(style),
+      btn = document.querySelector(trigger);
+  styles.forEach(function (st) {
+    st.classList.add('animated', 'fadeInDown');
+  });
+  btn.addEventListener('click', function () {
+    styles.forEach(function (st) {
+      st.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs');
+      st.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
+    }); // btn.style.display = 'none';
+
+    btn.remove();
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (loadStyles);
+
+/***/ }),
+
 /***/ "./src/js/modules/mask.js":
 /*!********************************!*\
   !*** ./src/js/modules/mask.js ***!
@@ -4384,39 +4416,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mask = function mask(selector) {
+  //function to set cursour at right position
   var setCursourPosition = function setCursourPosition(position, elem) {
-    elem.focus();
+    elem.focus(); //forced focus
+    //if browser has method 'setSelectionRange'
 
     if (elem.setSelectionRange) {
       elem.setSelectionRange(position, position);
     } else if (elem.createTextRange) {
+      //for other browsers(expl)
       var range = elem.createTextRange();
-      range.collapse(true);
-      range.moveEnd('character', position);
-      range.moveStart('character', position);
-      range.select();
+      range.collapse(true); //start position = end one
+
+      range.moveEnd('character', position); //end position
+
+      range.moveStart('character', position); //start position(= end position)
+
+      range.select(); //select textrange
     }
   };
 
   function createMask(event) {
-    var matrix = '+7 (___) ___ __ __';
-    var i = 0;
+    var matrix = '+7 (___) ___ __ __'; //Here is our mask
+
+    var i = 0; //index of symbols
+
     var def = matrix.replace(/\D/g, ''),
-        val = this.value.replace(/\D/g, '');
+        //to show only plus and seven
+    val = this.value.replace(/\D/g, ''); //to show only plus and seven for input
+    //to prevent deleting plus and seven during input
 
     if (def.length >= val.length) {
       val = def;
     }
 
     this.value = matrix.replace(/./g, function (a) {
+      //fill the phone mask
       return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a;
-    });
+    }); //if clicked outside the mask and no sybols in input, then mask become default
 
     if (event.type === 'blur') {
       if (this.value.length === 2) {
         this.value = '';
       }
     } else {
+      //set cursour in the end of val
       setCursourPosition(this.value.length, this);
     }
   }
@@ -4632,7 +4676,7 @@ var sliders = function sliders(slides, prev, next) {
   } catch (e) {} //Autochange slides in sliders
 
 
-  var AutoAtnimate = function AutoAtnimate() {
+  var AutoAnimate = function AutoAnimate() {
     if (updown) {
       //for vertical slider
       paused = setInterval(function () {
@@ -4648,13 +4692,13 @@ var sliders = function sliders(slides, prev, next) {
     }
   };
 
-  AutoAtnimate(); //Stops autochange when mouse is on the slider
+  AutoAnimate(); //Stops autochange when mouse is on the slider
 
   items[0].parentNode.addEventListener('mouseenter', function () {
     clearInterval(paused);
   });
   items[0].parentNode.addEventListener('mouseleave', function () {
-    AutoAtnimate();
+    AutoAnimate();
   });
 };
 
