@@ -5,7 +5,7 @@ const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
 // const dist = "./dist/";
-const dist = '/2. OpenServer/domains/artPicture';
+const dist = '/2. OpenServer/domains/artPicture/dist'; // Тут адрес к вашему серверу
 
 gulp.task("copy-html", () => {
     return gulp.src("./src/index.html")
