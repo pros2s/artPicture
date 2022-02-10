@@ -3,6 +3,7 @@ import sliders from "./modules/sliders";
 import forms from "./modules/forms";
 import mask from "./modules/mask";
 import checkTextInputs from "./modules/checkTextInputs";
+import loadStyles from "./modules/loadStyles";
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -16,4 +17,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   checkTextInputs('[name="name"]');
   checkTextInputs('[name="message"]');
+
+  loadStyles('.button-styles', '.styles-2');
 });
