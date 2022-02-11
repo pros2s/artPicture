@@ -4410,6 +4410,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
 /* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
 /* harmony import */ var _modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/showSizesPics */ "./src/js/modules/showSizesPics.js");
+/* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
+
 
 
 
@@ -4433,7 +4435,94 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.calc_form .promocode', '.calc_form .calc-price');
   Object(_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])('.portfolio-menu', '.portfolio-block');
   Object(_modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
+  Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])('.often-questions');
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/accordion.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/accordion.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var accordion = function accordion(accordionSelector) {
+  var questionsBlock = document.querySelector(accordionSelector),
+      accordSpans = questionsBlock.querySelectorAll('#accordion p span'),
+      accordClues = questionsBlock.querySelectorAll('#accordion div');
+
+  var clearSpansColor = function clearSpansColor() {
+    accordSpans.forEach(function (span) {
+      span.style.color = '';
+      span.style.borderBottom = '2px dotted #333';
+    });
+  }; //hide clues of accordion
+
+
+  var allCluesClose = function allCluesClose() {
+    accordClues.forEach(function (item) {
+      item.style.display = 'none';
+    });
+  };
+
+  allCluesClose();
+
+  var showClues = function showClues(dataSelector, currentSpan) {
+    accordClues.forEach(function (item) {
+      //if data-clue of 'p' === data-clue of 'div'
+      if (item.dataset.clue === dataSelector) {
+        //if this 'div' is closed
+        if (item.style.display !== 'block') {
+          allCluesClose();
+          clearSpansColor();
+          item.classList.add('animated', 'fadeIn');
+          item.style.display = 'block';
+          currentSpan.style.color = '#BF1DBA'; //active color for span
+
+          currentSpan.style.borderBottom = 'none';
+        } else {
+          //closes this 'div'
+          item.classList.remove('animated', 'fadeIn');
+          item.style.display = 'none';
+          currentSpan.style.color = ''; //removes active color for span
+
+          currentSpan.style.borderBottom = '2px dotted #333'; //sets default border
+        }
+      }
+    });
+  };
+
+  questionsBlock.addEventListener('click', function (e) {
+    var target = e.target;
+
+    switch (target.parentNode.dataset.clue) {
+      case 'time':
+        showClues('time', target);
+        break;
+
+      case 'watch':
+        showClues('watch', target);
+        break;
+
+      case 'format':
+        showClues('format', target);
+        break;
+
+      case 'specials':
+        showClues('specials', target);
+        break;
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (accordion);
 
 /***/ }),
 
