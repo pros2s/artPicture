@@ -5,6 +5,7 @@ import mask from "./modules/mask";
 import checkTextInputs from "./modules/checkTextInputs";
 import loadStyles from "./modules/loadStyles";
 import calc from "./modules/calc";
+import filter from "./modules/filter";
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -22,4 +23,6 @@ window.addEventListener('DOMContentLoaded', () => {
   loadStyles('.button-styles', '#styles .row');
 
   calc('#size', '#material', '#options', '.calc_form .promocode', '.calc_form .calc-price');
+
+  filter('.portfolio-menu', '.portfolio-block');
 });

@@ -4351,6 +4351,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/loadStyles */ "./src/js/modules/loadStyles.js");
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
+/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+
 
 
 
@@ -4370,6 +4372,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="message"]');
   Object(_modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '#styles .row');
   Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.calc_form .promocode', '.calc_form .calc-price');
+  Object(_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])('.portfolio-menu', '.portfolio-block');
 });
 
 /***/ }),
@@ -4442,6 +4445,80 @@ var checkTextInputs = function checkTextInputs(selector) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (checkTextInputs);
+
+/***/ }),
+
+/***/ "./src/js/modules/filter.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/filter.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var filter = function filter(trigger, product) {
+  var picGroup = document.querySelector(trigger),
+      picOne = document.querySelectorAll("".concat(trigger, " li")),
+      picture = document.querySelectorAll(product);
+  picGroup.addEventListener('click', function (e) {
+    picOne.forEach(function (item) {
+      item.classList.remove('active');
+    });
+    picture.forEach(function (item) {
+      item.style.display = 'none';
+    });
+
+    var showPicture = function showPicture(name) {
+      picture.forEach(function (item) {
+        if (item.classList.contains(name)) {
+          item.style.display = 'block';
+        }
+      });
+    };
+
+    var portfolioNo = document.querySelector('.portfolio-no');
+    portfolioNo.style.display = 'none';
+
+    switch (e.target.className) {
+      case 'all':
+        showPicture('all');
+        break;
+
+      case 'lovers':
+        showPicture('lovers');
+        break;
+
+      case 'chef':
+        showPicture('chef');
+        break;
+
+      case 'girl':
+        showPicture('girl');
+        break;
+
+      case 'guy':
+        showPicture('guy');
+        break;
+
+      case 'grandmother':
+        portfolioNo.style.display = 'block';
+        break;
+
+      case 'granddad':
+        portfolioNo.style.display = 'block';
+        break;
+    }
+
+    e.target.classList.add('active');
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (filter);
 
 /***/ }),
 
