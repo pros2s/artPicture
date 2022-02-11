@@ -1,6 +1,6 @@
 const filter = (trigger, product) => {
   const picGroup = document.querySelector(trigger),
-        picOne = document.querySelectorAll(`${trigger} li`),
+        picOne = picGroup.querySelectorAll('li'),
         picture = document.querySelectorAll(product);
 
 
@@ -18,6 +18,11 @@ const filter = (trigger, product) => {
         if (item.classList.contains(name)) {
           item.style.display = 'block';
         }
+        item.classList.add('animated', 'fadeIn');
+        
+        setTimeout(() => {
+          item.classList.remove('animated', 'fadeIn');
+        }, 1500);
       });
     };
 

@@ -4463,7 +4463,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var filter = function filter(trigger, product) {
   var picGroup = document.querySelector(trigger),
-      picOne = document.querySelectorAll("".concat(trigger, " li")),
+      picOne = picGroup.querySelectorAll('li'),
       picture = document.querySelectorAll(product);
   picGroup.addEventListener('click', function (e) {
     picOne.forEach(function (item) {
@@ -4478,6 +4478,11 @@ var filter = function filter(trigger, product) {
         if (item.classList.contains(name)) {
           item.style.display = 'block';
         }
+
+        item.classList.add('animated', 'fadeIn');
+        setTimeout(function () {
+          item.classList.remove('animated', 'fadeIn');
+        }, 1500);
       });
     };
 
