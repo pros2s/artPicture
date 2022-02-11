@@ -4352,6 +4352,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/loadStyles */ "./src/js/modules/loadStyles.js");
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
 /* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+/* harmony import */ var _modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/showSizesPics */ "./src/js/modules/showSizesPics.js");
+
 
 
 
@@ -4373,6 +4375,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_loadStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '#styles .row');
   Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.calc_form .promocode', '.calc_form .calc-price');
   Object(_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])('.portfolio-menu', '.portfolio-block');
+  Object(_modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
 });
 
 /***/ }),
@@ -4911,6 +4914,54 @@ var modals = function modals() {
 
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/showSizesPics.js":
+/*!*****************************************!*\
+  !*** ./src/js/modules/showSizesPics.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var showSizesPics = function showSizesPics(picSize) {
+  var pictureSize = document.querySelectorAll(picSize); //sizes block
+
+  pictureSize.forEach(function (item, i) {
+    var itemSelector = item.querySelector('img'),
+        //image which we need
+    itemParagraph = itemSelector.parentNode.querySelectorAll('p'); //paragraphs inside the sizes block
+
+    item.addEventListener('mouseenter', function () {
+      //Watch the index and change src of the img
+      itemSelector.setAttribute('src', "assets/img/sizes-".concat(i + 1, "-1.png"));
+      itemSelector.classList.add('animated', 'fadeIn'); //animation
+      //Hides paragraphs
+
+      itemParagraph.forEach(function (p) {
+        if (!p.classList.contains('sizes-hit')) {
+          //:not .sizes-hit
+          p.style.display = 'none';
+        }
+      });
+    });
+    item.addEventListener('mouseleave', function () {
+      itemSelector.setAttribute('src', "assets/img/sizes-".concat(i + 1, ".png"));
+      itemSelector.classList.remove('animated', 'fadeIn');
+      itemParagraph.forEach(function (p) {
+        p.style.display = '';
+      });
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (showSizesPics);
 
 /***/ }),
 

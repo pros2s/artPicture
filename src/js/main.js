@@ -6,6 +6,7 @@ import checkTextInputs from "./modules/checkTextInputs";
 import loadStyles from "./modules/loadStyles";
 import calc from "./modules/calc";
 import filter from "./modules/filter";
+import showSizesPics from "./modules/showSizesPics";
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -16,7 +17,6 @@ window.addEventListener('DOMContentLoaded', () => {
   forms();
 
   mask('[name="phone"]');
-
   checkTextInputs('[name="name"]');
   checkTextInputs('[name="message"]');
 
@@ -25,4 +25,6 @@ window.addEventListener('DOMContentLoaded', () => {
   calc('#size', '#material', '#options', '.calc_form .promocode', '.calc_form .calc-price');
 
   filter('.portfolio-menu', '.portfolio-block');
+
+  showSizesPics('.sizes-block');
 });
