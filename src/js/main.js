@@ -8,6 +8,7 @@ import calc from "./modules/calc";
 import filter from "./modules/filter";
 import showSizesPics from "./modules/showSizesPics";
 import accordion from "./modules/accordion";
+import burger from "./modules/burger";
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -30,4 +31,6 @@ window.addEventListener('DOMContentLoaded', () => {
   showSizesPics('.sizes-block');
 
   accordion('.often-questions');
+
+  burger('.burger-menu', '.burger');
 });

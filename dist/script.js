@@ -4411,6 +4411,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
 /* harmony import */ var _modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/showSizesPics */ "./src/js/modules/showSizesPics.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
+/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+
 
 
 
@@ -4436,6 +4438,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])('.portfolio-menu', '.portfolio-block');
   Object(_modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
   Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])('.often-questions');
+  Object(_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger-menu', '.burger');
 });
 
 /***/ }),
@@ -4482,15 +4485,20 @@ var accordion = function accordion(accordionSelector) {
         if (item.style.display !== 'block') {
           allCluesClose();
           clearSpansColor();
-          item.classList.add('animated', 'fadeIn');
+          item.classList.remove('animated', 'fadeOutUp');
+          item.classList.add('animated', 'fadeInDown');
           item.style.display = 'block';
           currentSpan.style.color = '#BF1DBA'; //active color for span
 
           currentSpan.style.borderBottom = 'none';
         } else {
           //closes this 'div'
-          item.classList.remove('animated', 'fadeIn');
-          item.style.display = 'none';
+          item.classList.remove('animated', 'fadeInDown');
+          item.classList.add('animated', 'fadeOutUp'); //to show animation fadeOutUp
+
+          setTimeout(function () {
+            item.style.display = 'none';
+          }, 1000);
           currentSpan.style.color = ''; //removes active color for span
 
           currentSpan.style.borderBottom = '2px dotted #333'; //sets default border
@@ -4523,6 +4531,49 @@ var accordion = function accordion(accordionSelector) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (accordion);
+
+/***/ }),
+
+/***/ "./src/js/modules/burger.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/burger.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var burger = function burger(menuSelector, burgerSelector) {
+  var menuElem = document.querySelector(menuSelector),
+      burgerElem = document.querySelector(burgerSelector);
+  menuElem.style.display = 'none';
+
+  var showMenu = function showMenu() {
+    menuElem.classList.remove('animated', 'fadeOutLeft');
+    menuElem.classList.add('animated', 'fadeInLeft');
+    menuElem.style.display = 'block';
+  },
+      hideMenu = function hideMenu() {
+    menuElem.classList.remove('animated', 'fadeInLeft');
+    menuElem.classList.add('animated', 'fadeOutLeft');
+    setTimeout(function () {
+      menuElem.style.display = 'none';
+    }, 500);
+  };
+
+  burgerElem.addEventListener('click', function () {
+    if (document.documentElement.clientWidth < 993 && menuElem.style.display === 'none') {
+      showMenu();
+    } else {
+      hideMenu();
+    }
+  });
+  window.addEventListener('resize', function () {
+    hideMenu();
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (burger);
 
 /***/ }),
 
