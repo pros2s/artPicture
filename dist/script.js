@@ -4413,6 +4413,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
 /* harmony import */ var _modules_scrolling__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/scrolling */ "./src/js/modules/scrolling.js");
+/* harmony import */ var _modules_dragDrop__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/dragDrop */ "./src/js/modules/dragDrop.js");
+
 
 
 
@@ -4442,6 +4444,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])('.often-questions');
   Object(_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger-menu', '.burger');
   Object(_modules_scrolling__WEBPACK_IMPORTED_MODULE_11__["default"])('.pageup');
+  Object(_modules_dragDrop__WEBPACK_IMPORTED_MODULE_12__["default"])('.file_upload');
 });
 
 /***/ }),
@@ -4648,6 +4651,86 @@ var checkTextInputs = function checkTextInputs(selector) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (checkTextInputs);
+
+/***/ }),
+
+/***/ "./src/js/modules/dragDrop.js":
+/*!************************************!*\
+  !*** ./src/js/modules/dragDrop.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.function.name */ "./node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.string.split */ "./node_modules/core-js/modules/es.string.split.js");
+/* harmony import */ var core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_split__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+var dragDrop = function dragDrop(dragSelector) {
+  var elemsToDrop = document.querySelectorAll(dragSelector); //dragenter - элемент в пределах dropArea
+  //dragleave - элемент за пределами dropArea
+  //dragover - элемент зависает над dropArea
+  //drop - элемент отправлен в dropArea
+
+  var preventDefaults = function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  ['dragenter', 'dragleave', 'dragover', 'drop'].forEach(function (eventName) {
+    elemsToDrop.forEach(function (elem) {
+      elem.addEventListener(eventName, preventDefaults);
+    });
+  }); //styles if 'dragenter' or 'dragover'
+
+  var highlight = function highlight(item) {
+    var itemElem = item.querySelector('button');
+    itemElem.innerText = 'Отпустите здесь';
+    itemElem.style.cssText = "\n            transition: .15s all linear;\n            background-color: #C51ABB;\n            border: 2px solid #C51ABB;\n            color: #fff;\n          ";
+  },
+      unhighlight = function unhighlight(item) {
+    var itemElem = item.querySelector('button');
+    itemElem.innerText = 'Загрузить фотографию';
+    itemElem.style.cssText = '';
+  }; //Listeners on drag and drop events
+
+
+  ['dragover', 'dragenter'].forEach(function (eventName) {
+    elemsToDrop.forEach(function (elem) {
+      elem.addEventListener(eventName, function () {
+        return highlight(elem);
+      }, false);
+    });
+  });
+  ['dragleave', 'drop'].forEach(function (eventName) {
+    elemsToDrop.forEach(function (elem) {
+      elem.addEventListener(eventName, function () {
+        return unhighlight(elem);
+      }, false);
+    });
+  }); //chages fileList on 'drop'
+
+  elemsToDrop.forEach(function (elem) {
+    elem.addEventListener('drop', function (e) {
+      elem.files = e.dataTransfer.files; //cut the name of file(s)
+
+      var dots;
+      var arr = elem.files[0].name.split('.');
+      arr[0].length > 6 ? dots = "..." : dots = '.';
+      var name = arr[0].substring(0, 6) + dots + arr[1];
+      elem.querySelector('div').textContent = name; //
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (dragDrop);
 
 /***/ }),
 

@@ -251,6 +251,18 @@ h4 {
   opacity: 0;
   cursor: pointer;
 }
+.main .file_upload {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  position: relative;
+  overflow: hidden;
+  font-size: 1em;
+
+  line-height: 2em /* the same as height */;
+  height: 6em;
+}
 .main .file_upload > button {
   transition: background 0.2s;
   border-radius: 50px;
@@ -262,6 +274,12 @@ h4 {
   color: #c51abb;
   border: 2px solid #c51abb;
   padding: 1.5rem;
+  width: 100%;
+
+  order: 2;
+}
+.main .file_upload > div {
+  order: 1;
 }
 .main .file_upload > button:before {
   content: '';
@@ -547,26 +565,29 @@ h4 {
   text-align: justify;
 }
 .calc .file_upload {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
   position: relative;
   overflow: hidden;
   font-size: 1em;
-  /* example */
 
-  height: 4em;
-  /* example */
-
-  line-height: 2em /* the same as height */
-;
+  line-height: 2em /* the same as height */;
 }
 .calc .file_upload > button {
+  order: 2;
+
   float: right;
-  width: 8em;
+  width: 100%;
   /* example */
 
   height: 100%;
 }
 .calc .file_upload > div {
-  padding-left: 1em /* example */
+  order: 1;
+
+  padding-bottom: 1em /* example */
 ;
 }
 .calc .file_upload input[type=file] {
@@ -1144,28 +1165,28 @@ h4 {
   margin-top: 2rem;
 }
 .popup-design .file_upload {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
   position: relative;
   overflow: hidden;
   font-size: 1em;
-  /* example */
 
-  height: 4em;
-  /* example */
-
-  line-height: 2em /* the same as height */
-;
+  line-height: 2em /* the same as height */;
+  height: 6em;;
 }
 .popup-design .file_upload > button {
+  order: 2;
+
   float: right;
-  width: 8em;
+  width: 100%;
   /* example */
 
   height: 100%;
 }
 .popup-design .file_upload > div {
-  padding-left: 1em;
-  /* example */
-
+  order: 1;
 }
 .popup-design .file_upload input[type=file] {
   position: absolute;
@@ -1279,22 +1300,10 @@ h4 {
   .paints {
     display: none;
   }
-  .calc .file_upload > div {
-    display: none;
-  }
   .calc .file_upload > button {
     width: 100%;
   }
-  .popup-design .file_upload > div {
-    display: none;
-  }
   .popup-design .file_upload > button {
-    width: 100%;
-  }
-  .main .file_upload > div {
-    display: none;
-  }
-  .main .file_upload > button {
     width: 100%;
   }
 }
@@ -1500,6 +1509,10 @@ h4 {
   .calc .button-transparent {
     margin: 4rem auto;
     width: auto;
+  }
+  .calc .file_upload > button {
+    margin: auto;
+    width: 50%;
   }
 }
 @media (max-width: 767px) {

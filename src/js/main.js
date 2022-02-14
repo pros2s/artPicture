@@ -10,6 +10,7 @@ import showSizesPics from "./modules/showSizesPics";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
 import scrolling from "./modules/scrolling";
+import dragDrop from "./modules/dragDrop";
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -32,4 +33,5 @@ window.addEventListener('DOMContentLoaded', () => {
   burger('.burger-menu', '.burger');
 
   scrolling('.pageup');
+  dragDrop('.file_upload');
 });
