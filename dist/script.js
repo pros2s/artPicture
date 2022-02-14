@@ -5126,8 +5126,8 @@ var modals = function modals() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
-/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
 
 
 var scrolling = function scrolling(upSelector) {
@@ -5140,56 +5140,86 @@ var scrolling = function scrolling(upSelector) {
       upBtn.classList.add('fadeOutDown');
       upBtn.classList.remove('fadeInUpBig');
     }
-  }); // Pure js scrolling
+  }); // Scrolling with raf
 
-  var calcScroll = function calcScroll() {
-    upBtn.addEventListener('click', function (event) {
-      //document.body.scrollTop for old browsers
-      var scrollTop = Math.round(document.body.scrollTop || document.documentElement.scrollTop);
+  var links = document.querySelectorAll('[href^="#"]'),
+      //all links which first symbol(^) is '#'
+  speed = 0.15;
+  links.forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault(); //document.body.scrollTop for old browsers
 
-      if (this.hash !== '') {
-        event.preventDefault();
-        var hashElement = document.querySelector(this.hash),
-            //this.hash == this id
-        hashElementTop = 0; //while current element has parent(until body or html, or static positioned element)
+      var scrollTop = Math.round(document.body.scrollTop || document.documentElement.scrollTop),
+          hash = this.hash,
+          toBlock = document.querySelector(hash).getBoundingClientRect().top,
+          //height of the hash element(px)
+      start = null;
+      requestAnimationFrame(step); //Interface for simple animation in js
 
-        while (hashElement.offsetParent) {
-          hashElementTop += hashElement.offsetTop; //calculate scrollTop value of element
-
-          hashElement = hashElement.offsetParent;
+      function step(time) {
+        if (!start) {
+          start = time;
         }
 
-        hashElementTop = Math.round(hashElementTop);
-        smoothScroll(scrollTop, hashElementTop, this.hash);
+        var progress = time - start,
+            r = toBlock < 0 ? Math.max(scrollTop - progress / speed, scrollTop + toBlock) : Math.min(scrollTop + progress / speed, scrollTop + toBlock);
+        document.documentElement.scrollTo(0, r);
+
+        if (r != scrollTop + toBlock) {
+          requestAnimationFrame(step);
+        } else {
+          location.hash = hash;
+        }
       }
     });
-  };
-
-  var smoothScroll = function smoothScroll(from, to, hash) {
-    var timeInterval = 1,
-        prevScrollTop,
-        speed; //if element below click position(scroll down), else (scroll up)
-
-    to > from ? speed = 50 : speed = -50; //id of interval
-
-    var move = setInterval(function () {
-      var scrollTop = Math.round(document.body.scrollTop || document.documentElement.scrollTop);
-
-      if ( //already did smooth scroll
-      prevScrollTop === scrollTop || to > from && scrollTop >= to || to < from && scrollTop <= to //
-      ) {
-          clearInterval(move);
-          history.replaceState(history.state, document.title, location.href.replace(/#.*$/g, '') + hash);
-        } else {
-        //does smooth scroll
-        document.body.scrollTop += speed;
-        document.documentElement.scrollTop += speed;
-        prevScrollTop = scrollTop; //
-      }
-    }, timeInterval);
-  };
-
-  calcScroll();
+  }); // Pure js scrolling
+  // const calcScroll = () => {
+  //   upBtn.addEventListener('click', function(event) {
+  //     //document.body.scrollTop for old browsers
+  //     let scrollTop = Math.round(document.body.scrollTop || document.documentElement.scrollTop);
+  //     if (this.hash !== '') {
+  //       event.preventDefault();
+  //       let hashElement = document.querySelector(this.hash),//this.hash == this id
+  //           hashElementTop = 0;
+  //       //while current element has parent(until body or html, or static positioned element)
+  //       while (hashElement.offsetParent) {
+  //         hashElementTop += hashElement.offsetTop;//calculate scrollTop value of element
+  //         hashElement = hashElement.offsetParent;
+  //       }
+  //       hashElementTop = Math.round(hashElementTop);
+  //       smoothScroll(scrollTop, hashElementTop, this.hash);
+  //     }
+  //   });
+  // };
+  // const smoothScroll = (from, to, hash) => {
+  //   let timeInterval = 1,
+  //       prevScrollTop,
+  //       speed;
+  //   //if element below click position(scroll down), else (scroll up)
+  //   to > from ? speed = 50 : speed = -50;
+  //   //id of interval
+  //   let move = setInterval(() => {
+  //     let scrollTop = Math.round(document.body.scrollTop || document.documentElement.scrollTop);
+  //     if (
+  //       //already did smooth scroll
+  //       prevScrollTop === scrollTop ||
+  //       (to > from && scrollTop >= to) ||
+  //       (to < from && scrollTop <= to)
+  //       //
+  //     ) {
+  //       clearInterval(move);
+  //       history.replaceState(history.state, document.title, location.href.replace(/#.*$/g, '') + hash);
+  //     }
+  //     else {
+  //       //does smooth scroll
+  //       document.body.scrollTop += speed;
+  //       document.documentElement.scrollTop += speed;
+  //       prevScrollTop = scrollTop;
+  //       //
+  //     }
+  //   }, timeInterval);
+  // };
+  // calcScroll();
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (scrolling);
