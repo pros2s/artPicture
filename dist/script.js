@@ -5117,6 +5117,7 @@ var modals = function modals() {
         //normal margin for fixed gift
 
         document.querySelector('.fixed-gift').style.marginRight = "".concat(hidePopupScroll(), "px");
+        document.querySelector('.pageup').style.marginRight = "".concat(hidePopupScroll(), "px");
       });
     }); //Close modal on click to crossbutton
 
@@ -5128,6 +5129,7 @@ var modals = function modals() {
       document.body.style.overflow = "";
       document.body.style.marginRight = '0px';
       document.querySelector('.fixed-gift').style.marginRight = "0px";
+      document.querySelector('.pageup').style.marginRight = "0px";
     }); //Close modal on click to overflow of modal
 
     modal.addEventListener('click', function (e) {
@@ -5139,6 +5141,7 @@ var modals = function modals() {
         document.body.style.overflow = "";
         document.body.style.marginRight = '0px';
         document.querySelector('.fixed-gift').style.marginRight = "0px";
+        document.querySelector('.pageup').style.marginRight = "0px";
       }
     });
   }; //Popup modal by time function
@@ -5158,6 +5161,7 @@ var modals = function modals() {
         document.body.style.overflow = "hidden";
         document.body.style.marginRight = "".concat(hidePopupScroll(), "px");
         document.querySelector('.fixed-gift').style.marginRight = "".concat(hidePopupScroll(), "px");
+        document.querySelector('.pageup').style.marginRight = "".concat(hidePopupScroll(), "px");
       }
     }, time);
   };

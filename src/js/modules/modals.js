@@ -35,6 +35,7 @@ const modals = () => {
 
         //normal margin for fixed gift
         document.querySelector('.fixed-gift').style.marginRight = `${hidePopupScroll()}px`;
+        document.querySelector('.pageup').style.marginRight = `${hidePopupScroll()}px`;
       });
     });
 
@@ -47,7 +48,9 @@ const modals = () => {
       modal.style.display = "none";
       document.body.style.overflow = "";
       document.body.style.marginRight = '0px';
+      
       document.querySelector('.fixed-gift').style.marginRight = `0px`;
+      document.querySelector('.pageup').style.marginRight = `0px`;
     });
 
     //Close modal on click to overflow of modal
@@ -60,7 +63,9 @@ const modals = () => {
         modal.style.display = "none";
         document.body.style.overflow = "";
         document.body.style.marginRight = '0px';
+
         document.querySelector('.fixed-gift').style.marginRight = `0px`;
+        document.querySelector('.pageup').style.marginRight = `0px`;
       }
     });
   };
@@ -82,6 +87,7 @@ const modals = () => {
         document.body.style.marginRight = `${hidePopupScroll()}px`;
 
         document.querySelector('.fixed-gift').style.marginRight = `${hidePopupScroll()}px`;
+        document.querySelector('.pageup').style.marginRight = `${hidePopupScroll()}px`;
       }
     }, time);
   };

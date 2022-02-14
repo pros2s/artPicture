@@ -1284,16 +1284,33 @@ h4 {
 
 .pageup {
   opacity: 0;
-  width: 26px ;
-  height: 26px;
+  width: 55px;
+  height: 55px;
   position: fixed;
-  bottom: 100px;
-  right: 5%;
+  bottom: 30px;
+  right: 30px;
   z-index: 30;
   background-color: #fff;
   cursor: pointer;
-  border: 1px solid white;
-  transition: 1s all;
+  border: 2px solid #ff9bdf;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.up {
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.upArrow {
+  fill: #FCAFE4;
+  opacity: .7;
+
+  transition: opacity .1s linear;
+}
+
+.up:hover .upArrow {
+  opacity: 1;
 }
 
 @media (max-width: 1399px) {
