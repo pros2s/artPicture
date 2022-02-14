@@ -35,7 +35,7 @@ const modals = () => {
 
         //normal margin for fixed gift
         document.querySelector('.fixed-gift').style.marginRight = `${hidePopupScroll()}px`;
-        document.querySelector('.pageup').style.marginRight = `${hidePopupScroll()}px`;
+        document.querySelector('.pageup').style.display = 'none';
       });
     });
 
@@ -48,9 +48,9 @@ const modals = () => {
       modal.style.display = "none";
       document.body.style.overflow = "";
       document.body.style.marginRight = '0px';
-      
+
       document.querySelector('.fixed-gift').style.marginRight = `0px`;
-      document.querySelector('.pageup').style.marginRight = `0px`;
+      document.querySelector('.pageup').style.display = 'block';
     });
 
     //Close modal on click to overflow of modal
@@ -65,7 +65,7 @@ const modals = () => {
         document.body.style.marginRight = '0px';
 
         document.querySelector('.fixed-gift').style.marginRight = `0px`;
-        document.querySelector('.pageup').style.marginRight = `0px`;
+        document.querySelector('.pageup').style.display = 'block';
       }
     });
   };
@@ -87,7 +87,7 @@ const modals = () => {
         document.body.style.marginRight = `${hidePopupScroll()}px`;
 
         document.querySelector('.fixed-gift').style.marginRight = `${hidePopupScroll()}px`;
-        document.querySelector('.pageup').style.marginRight = `${hidePopupScroll()}px`;
+        document.querySelector('.pageup').style.display = 'none';
       }
     }, time);
   };
@@ -120,7 +120,6 @@ const modals = () => {
         document.querySelector(selector).click();//Just click the button artificially
       }
     });
-
   };
 
   bindmodal('.button-design', '.popup-design', '.popup-design .popup-close');
