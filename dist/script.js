@@ -4412,6 +4412,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/showSizesPics */ "./src/js/modules/showSizesPics.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+/* harmony import */ var _modules_scrolling__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/scrolling */ "./src/js/modules/scrolling.js");
+
 
 
 
@@ -4439,6 +4441,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_showSizesPics__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
   Object(_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])('.often-questions');
   Object(_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])('.burger-menu', '.burger');
+  Object(_modules_scrolling__WEBPACK_IMPORTED_MODULE_11__["default"])('.pageup');
 });
 
 /***/ }),
@@ -4485,16 +4488,16 @@ var accordion = function accordion(accordionSelector) {
         if (item.style.display !== 'block') {
           allCluesClose();
           clearSpansColor();
-          item.classList.remove('animated', 'fadeOutUp');
           item.classList.add('animated', 'fadeInDown');
+          item.classList.remove('fadeOutUp');
           item.style.display = 'block';
           currentSpan.style.color = '#BF1DBA'; //active color for span
 
           currentSpan.style.borderBottom = 'none';
         } else {
           //closes this 'div'
-          item.classList.remove('animated', 'fadeInDown');
-          item.classList.add('animated', 'fadeOutUp'); //to show animation fadeOutUp
+          item.classList.remove('fadeInDown');
+          item.classList.add('fadeOutUp'); //to show animation fadeOutUp
 
           setTimeout(function () {
             item.style.display = 'none';
@@ -5028,7 +5031,7 @@ var modals = function modals() {
         document.body.style.overflow = "hidden"; //Full body exept modal is hidden(no scroll)
 
         document.body.style.marginRight = "".concat(hidePopupScroll(), "px"); //Remove scroll line
-        //normal margin for fized gift
+        //normal margin for fixed gift
 
         document.querySelector('.fixed-gift').style.marginRight = "".concat(hidePopupScroll(), "px");
       });
@@ -5111,6 +5114,85 @@ var modals = function modals() {
 
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/scrolling.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/scrolling.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var scrolling = function scrolling(upSelector) {
+  var upBtn = document.querySelector(upSelector);
+  window.addEventListener('scroll', function () {
+    if (document.documentElement.scrollTop > 849) {
+      upBtn.classList.add('animated', 'fadeInUpBig');
+      upBtn.classList.remove('fadeOutDown');
+    } else {
+      upBtn.classList.add('fadeOutDown');
+      upBtn.classList.remove('fadeInUpBig');
+    }
+  }); // Pure js scrolling
+
+  var calcScroll = function calcScroll() {
+    upBtn.addEventListener('click', function (event) {
+      //document.body.scrollTop for old browsers
+      var scrollTop = Math.round(document.body.scrollTop || document.documentElement.scrollTop);
+
+      if (this.hash !== '') {
+        event.preventDefault();
+        var hashElement = document.querySelector(this.hash),
+            //this.hash == this id
+        hashElementTop = 0; //while current element has parent(until body or html, or static positioned element)
+
+        while (hashElement.offsetParent) {
+          hashElementTop += hashElement.offsetTop; //calculate scrollTop value of element
+
+          hashElement = hashElement.offsetParent;
+        }
+
+        hashElementTop = Math.round(hashElementTop);
+        smoothScroll(scrollTop, hashElementTop, this.hash);
+      }
+    });
+  };
+
+  var smoothScroll = function smoothScroll(from, to, hash) {
+    var timeInterval = 1,
+        prevScrollTop,
+        speed; //if element below click position(scroll down), else (scroll up)
+
+    to > from ? speed = 50 : speed = -50; //id of interval
+
+    var move = setInterval(function () {
+      var scrollTop = Math.round(document.body.scrollTop || document.documentElement.scrollTop);
+
+      if ( //already did smooth scroll
+      prevScrollTop === scrollTop || to > from && scrollTop >= to || to < from && scrollTop <= to //
+      ) {
+          clearInterval(move);
+          history.replaceState(history.state, document.title, location.href.replace(/#.*$/g, '') + hash);
+        } else {
+        //does smooth scroll
+        document.body.scrollTop += speed;
+        document.documentElement.scrollTop += speed;
+        prevScrollTop = scrollTop; //
+      }
+    }, timeInterval);
+  };
+
+  calcScroll();
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (scrolling);
 
 /***/ }),
 

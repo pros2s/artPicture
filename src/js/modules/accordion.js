@@ -29,8 +29,8 @@ const accordion = (accordionSelector) => {
           allCluesClose();
           clearSpansColor();
 
-          item.classList.remove('animated', 'fadeOutUp');
           item.classList.add('animated', 'fadeInDown');
+          item.classList.remove('fadeOutUp');
           item.style.display = 'block';
 
           currentSpan.style.color = '#BF1DBA';//active color for span
@@ -38,8 +38,8 @@ const accordion = (accordionSelector) => {
         }
         else {
           //closes this 'div'
-          item.classList.remove('animated', 'fadeInDown');
-          item.classList.add('animated', 'fadeOutUp');
+          item.classList.remove('fadeInDown');
+          item.classList.add('fadeOutUp');
 
           //to show animation fadeOutUp
           setTimeout(() => {

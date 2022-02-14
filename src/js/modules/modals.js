@@ -33,7 +33,7 @@ const modals = () => {
         document.body.style.overflow = "hidden";//Full body exept modal is hidden(no scroll)
         document.body.style.marginRight = `${hidePopupScroll()}px`;//Remove scroll line
 
-        //normal margin for fized gift
+        //normal margin for fixed gift
         document.querySelector('.fixed-gift').style.marginRight = `${hidePopupScroll()}px`;
       });
     });

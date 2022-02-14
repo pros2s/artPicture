@@ -9,6 +9,7 @@ import filter from "./modules/filter";
 import showSizesPics from "./modules/showSizesPics";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
+import scrolling from "./modules/scrolling";
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -23,14 +24,12 @@ window.addEventListener('DOMContentLoaded', () => {
   checkTextInputs('[name="message"]');
 
   loadStyles('.button-styles', '#styles .row');
-
   calc('#size', '#material', '#options', '.calc_form .promocode', '.calc_form .calc-price');
-
   filter('.portfolio-menu', '.portfolio-block');
 
   showSizesPics('.sizes-block');
-
   accordion('.often-questions');
-
   burger('.burger-menu', '.burger');
+
+  scrolling('.pageup');
 });
