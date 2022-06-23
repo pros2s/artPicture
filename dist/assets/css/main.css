@@ -388,6 +388,9 @@ h4 {
 .main-slider-btn img {
   width: 100%;
 }
+.img-width100 {
+  width: 100%;
+}
 .main-prev-btn {
   left: 0;
 }
@@ -850,9 +853,8 @@ h4 {
   margin: 6rem 0 4rem 0;
 }
 .promo-2 img {
-  max-width: 100%;
+  width: 100%;
   position: relative;
-  right: -10rem;
 }
 .feedback {
   background-color: #f7e7e6;
